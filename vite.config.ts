@@ -1,8 +1,9 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import path from "path";
 
 export default defineConfig({
-  base: "/Failureis/",
+  base: '/Failureis/',
   plugins: [
     react(),
     {
@@ -10,7 +11,10 @@ export default defineConfig({
       resolveId(id) {
         if (id.startsWith("figma:asset/")) {
           const filename = id.split("/").pop();
-        return `./src/assets/${filename}`;
+          return path.resolve(__dirname, `src/assets/${filename}`);
+        }
+        if (id.startsWith("src/assets/")) {
+          return path.resolve(__dirname, id);
         }
       },
     },
