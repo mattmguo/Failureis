@@ -10,7 +10,7 @@ export default defineConfig({
       resolveId(id) {
         if (id.startsWith("figma:asset/")) {
           const filename = id.split("/").pop();
-          return `/src/assets/${filename}`;
+        return `./src/assets/${filename}`;
         }
       },
     },
