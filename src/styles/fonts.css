@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+
+@font-face {
+  font-family: 'Oatmeal Pro';
+  src: url('https://drive.google.com/uc?export=download&id=1Ejc5CdMhPxISB9etV7pL2xdCBJh_dJ3u') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Oatmeal Pro';
+  src: url('https://drive.google.com/uc?export=download&id=1ugePjruXSpnx62EBOsIjbc7KrcuXURyi') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Oatmeal Pro';
+  src: url('https://drive.google.com/uc?export=download&id=1lHt4pT8ggZWFbmPAtJ1anMf5o7cbEkPr') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Oatmeal Pro';
+  src: url('https://drive.google.com/uc?export=download&id=1Zq5R-FT3TXQk8iD7zf-XVsflZRcPBNjz') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Oatmeal Pro';
+  src: url('https://drive.google.com/uc?export=download&id=1zIPDzpb2E92j6Ru1Whtjnaq2AgMm0YZZ') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Oatmeal Pro';
+  src: url('https://drive.google.com/uc?export=download&id=10-IV_hn16uClTszJfpJAqTy2YwRmKbEu') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
