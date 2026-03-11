@@ -77,12 +77,15 @@ export function WorkbookPage() {
   const [isUnfolded, setIsUnfolded] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState(0);
 
   // Detect mobile breakpoint
   useEffect(() => {
     const check = () => {
-      setIsMobile(window.innerWidth < 768);
-      setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1024);
+      const width = window.innerWidth;
+      setViewportWidth(width);
+      setIsMobile(width < 768);
+      setIsTablet(width >= 768 && width < 1024);
     };
     check();
     window.addEventListener('resize', check);
@@ -449,14 +452,32 @@ export function WorkbookPage() {
   return (
     <div className="min-h-screen bg-[#F5F3EE] flex flex-col">
       {/* Top Nav */}
-      <nav className="flex items-center justify-between px-8 py-5" style={{ fontFamily: "'Oatmeal Pro', sans-serif" }}>
+      <nav
+        className="flex items-center justify-between"
+        style={{
+          fontFamily: "'Oatmeal Pro', sans-serif",
+          paddingLeft: isMobile ? 24 : 32,
+          paddingRight: isMobile ? 24 : 32,
+          paddingTop: isMobile ? 16 : 20,
+          paddingBottom: isMobile ? 16 : 20,
+        }}
+      >
         <button
           onClick={() => navigate('/')}
-          className="text-[#163612] hover:opacity-70 transition-opacity cursor-pointer text-[20px]"
-        >What does failure mean to you?</button>
+          className="text-[#163612] hover:opacity-70 transition-opacity cursor-pointer"
+          style={{
+            fontSize: isMobile ? '14px' : '20px',
+            textAlign: 'left',
+          }}
+        >
+          What does failure mean to you?
+        </button>
         <button
           onClick={() => setShowAbout(true)}
-          className="cursor-pointer hover:opacity-70 text-[20px] text-[#163612]"
+          className="cursor-pointer hover:opacity-70 text-[#163612]"
+          style={{
+            fontSize: isMobile ? '14px' : '20px',
+          }}
         >
           About
         </button>
@@ -477,7 +498,13 @@ export function WorkbookPage() {
             <div
               className="relative flex"
               style={{
-                width: isTablet ? 'min(600px, 85vw)' : 'min(900px, 90vw)',
+                width: isMobile
+                  ? 'min(520px, 82vw)'
+                  : isTablet
+                  ? (viewportWidth > 0 && viewportWidth < 900
+                    ? 'min(460px, 72vw)'
+                    : 'min(520px, 80vw)')
+                  : 'min(900px, 90vw)',
                 perspective: '1800px',
               }}
             >
@@ -834,47 +861,50 @@ export function WorkbookPage() {
           className="fixed inset-0 bg-[#c5dded] overflow-auto"
           style={{ zIndex: 50 }}
         >
-          {/* Close button */}
-          <button
-            onClick={() => setShowAbout(false)}
-            className="absolute cursor-pointer hover:opacity-70 transition-opacity"
+          {/* Top bar with About title and close button, center-aligned */}
+          <div
+            className="absolute flex items-center justify-between w-full"
             style={{
-              top: isMobile ? '24px' : isTablet ? '32px' : '51px',
-              right: isMobile ? '24px' : isTablet ? '40px' : '80px',
+              top: isMobile ? '32px' : isTablet ? '40px' : '60px',
+              left: 0,
+              right: 0,
+              paddingLeft: isMobile ? 24 : isTablet ? 40 : 90,
+              paddingRight: isMobile ? 24 : isTablet ? 40 : 90,
             }}
           >
-            <svg
-              width={isMobile ? 48 : isTablet ? 64 : 96}
-              height={isMobile ? 48 : isTablet ? 64 : 96}
-              viewBox="0 0 96 96"
-              fill="none"
+            <h2
+              className="text-[#163612]"
+              style={{
+                fontFamily: "'Lora', serif",
+                fontWeight: 500,
+                fontStyle: 'italic',
+                fontSize: isMobile ? '28px' : isTablet ? '40px' : '40px',
+                margin: 0,
+              }}
             >
-              <g clipPath="url(#clip0_about_close)">
-                <path d={svgPaths.p28da5c00} fill="#163612" />
-              </g>
-              <defs>
-                <clipPath id="clip0_about_close">
-                  <rect fill="white" height="96" width="96" />
-                </clipPath>
-              </defs>
-            </svg>
-          </button>
-
-          {/* About Title */}
-          <h2
-            className="text-[#163612]"
-            style={{
-              fontFamily: "'Lora', serif",
-              fontWeight: 500,
-              fontStyle: 'italic',
-              fontSize: isMobile ? '28px' : isTablet ? '40px' : '40px',
-              position: 'absolute',
-              left: isMobile ? '24px' : isTablet ? '40px' : '90px',
-              top: isMobile ? '40px' : isTablet ? '40px' : '73px',
-            }}
-          >
-            About
-          </h2>
+              About
+            </h2>
+            <button
+              onClick={() => setShowAbout(false)}
+              className="cursor-pointer hover:opacity-70 transition-opacity"
+            >
+              <svg
+                width={isMobile ? 48 : isTablet ? 64 : 96}
+                height={isMobile ? 48 : isTablet ? 64 : 96}
+                viewBox="0 0 96 96"
+                fill="none"
+              >
+                <g clipPath="url(#clip0_about_close)">
+                  <path d={svgPaths.p28da5c00} fill="#163612" />
+                </g>
+                <defs>
+                  <clipPath id="clip0_about_close">
+                    <rect fill="white" height="96" width="96" />
+                  </clipPath>
+                </defs>
+              </svg>
+            </button>
+          </div>
 
           {/* Content */}
           <div
@@ -910,15 +940,15 @@ export function WorkbookPage() {
                 fontWeight: 400,
               }}
             >
-              <p className="mb-0"><span style={{ fontWeight: 400 }}>Andrea Benatar</span><span> is a senior studying Product Design at Carnegie Mellon University.</span></p>
+              <p className="mb-0"><span style={{ fontWeight: 500 }}>Andrea Benatar</span><span> is a senior studying Product Design at Carnegie Mellon University.</span></p>
               <p className="mb-0">&nbsp;</p>
               <p className="mb-0">
-                <span style={{ fontWeight: 400 }}>Sophia Fan</span>
+                <span style={{ fontWeight: 500 }}>Sophia Fan</span>
                 <span> recently graduated with a degree in Communication Design from Carnegie Mellon University.</span>
               </p>
               <p className="mb-0">&nbsp;</p>
               <p>
-                <span style={{ fontWeight: 400 }}>Matthew Guo</span>
+                <span style={{ fontWeight: 500 }}>Matthew Guo</span>
                 <span> is a senior studying Information Systems and Human Computer Interaction at Carnegie Mellon University.</span>
               </p>
             </div>
