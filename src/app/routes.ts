@@ -11,4 +11,4 @@ export const router = createBrowserRouter([
     path: "/workbook",
     Component: WorkbookPage,
   },
-]);
+], { basename: "/Failureis/" });
